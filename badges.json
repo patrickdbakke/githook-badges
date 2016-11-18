@@ -1,0 +1,12 @@
+{
+	"readme":"./README.md",
+	"badges": [
+		{
+			"name": "version",
+			"type": "json",
+			"file": "package.json",
+			"value": "version",
+			"color": "blue"
+		}
+	]
+}

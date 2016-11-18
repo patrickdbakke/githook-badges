@@ -68,7 +68,7 @@ const getBadge = (badge, fn) => {
 	let value, text, unit = ''
 	if (badge.pass && badge.fail) {
 		const pass = +fn(file, badge.pass)[0]
-		const fail = +fn(file, badge.fail)[0]
+		const fail = +fn(file, badge.fail)[0] || 0
 		value = (pass / (pass + fail)) * 100
 		text = pass + '/' + (pass + fail)
 	} else if (badge.total && badge.count) {
@@ -81,8 +81,10 @@ const getBadge = (badge, fn) => {
 		text = value + '%'
 	} else if (badge.count) {
 		text = value = +fn(file, badge.count)
+	} else if (badge.value) {
+		text = value = fn(file, badge.value)
 	}
-	const color = getColor(value, badge.thresholds)
+	const color = badge.color || getColor(value, badge.thresholds)
 	const src = badgeString(badge.name, text, color)
 	const elem = `<span id="badge-${badge.name}"><img src="${src}"/> </span>`
 	return elem
