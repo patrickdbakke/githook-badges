@@ -65,20 +65,25 @@ const between = function(val, a, b) {
 
 const getBadge = (badge, fn) => {
 	const file = fs.readFileSync(badge.file, 'utf8')
-	let value, unit = ''
-	if (badge.total && badge.count) {
+	let value, text, unit = ''
+	if (badge.pass && badge.fail) {
+		const pass = +fn(file, badge.pass)[0]
+		const fail = +fn(file, badge.fail)[0]
+		value = (pass / (pass + fail)) * 100
+		text = pass + '/' + (pass + fail)
+	} else if (badge.total && badge.count) {
 		const total = +fn(file, badge.total)[0]
 		const count = +fn(file, badge.count)[0]
 		value = Math.floor((count / total) * 100)
-		unit = '%'
+		text = value + '%'
 	} else if (badge.percent) {
 		value = +fn(file, badge.percent)
-		unit = '%'
+		text = value + '%'
 	} else if (badge.count) {
-		value = +fn(file, badge.count)
+		text = value = +fn(file, badge.count)
 	}
 	const color = getColor(value, badge.thresholds)
-	const src = badgeString(badge.name, value + unit, color)
+	const src = badgeString(badge.name, text, color)
 	const elem = `<span id="badge-${badge.name}"><img src="${src}"/> </span>`
 	return elem
 }
