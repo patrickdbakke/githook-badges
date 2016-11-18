@@ -1,0 +1,23 @@
+{
+  "name": "githook-badges",
+  "version": "0.0.1",
+  "description": "Update your readme with badges without needing a CI server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickdbakke/githook-badges.git"
+  },
+  "author": "patrickdbakke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/patrickdbakke/githook-badges/issues"
+  },
+  "homepage": "https://github.com/patrickdbakke/githook-badges#readme",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "colors": "^1.1.2"
+  }
+}
