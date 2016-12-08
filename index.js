@@ -26,7 +26,7 @@ const getRegexMatches = (string, regexString, index = 1) => {
   while (match = regex.exec(string)) {
     matches.push(match[index])
   }
-  return matches
+  return matches[0]
 }
 
 const getJSONMatches = (json, path) => {
@@ -67,13 +67,13 @@ const getBadge = (badge, fn) => {
 	const file = fs.readFileSync(badge.file, 'utf8')
 	let value, text, unit = ''
 	if (badge.pass && badge.fail) {
-		const pass = +fn(file, badge.pass)[0]
-		const fail = +fn(file, badge.fail)[0] || 0
+		const pass = +fn(file, badge.pass)
+		const fail = +fn(file, badge.fail) || 0
 		value = (pass / (pass + fail)) * 100
 		text = pass + '/' + (pass + fail)
 	} else if (badge.total && badge.count) {
-		const total = +fn(file, badge.total)[0]
-		const count = +fn(file, badge.count)[0]
+		const total = +fn(file, badge.total)
+		const count = +fn(file, badge.count)
 		value = Math.floor((count / total) * 100)
 		text = value + '%'
 	} else if (badge.percent) {
